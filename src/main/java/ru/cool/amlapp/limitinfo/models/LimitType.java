@@ -1,7 +1,8 @@
-package ru.cool.amlapp.models;
+package ru.cool.amlapp.limitinfo.models;
 
 public enum LimitType {
     MONTH,
     DAY,
     WEEK;
+
 }

@@ -1,0 +1,31 @@
+package ru.cool.amlapp.common.exceptions;
+
+public enum MappedExceptions {
+    INVALID_ARGUMENTS (0,"Invalid Arguments"),
+    FILESNOTEXISTS (1,"Files are not exists in directory"),
+    RECORDEXISTS (2,"Record is already exists"),
+    RECORDNOTEXISTS (3,"Record is not exists"),
+    FILENOTVALID (4,"File not valid"),
+    SOMETHINGWRONG (5,"Oops, something wrong"),
+    UNKNOWNFILE (6,"Unknown File"),
+    RECORDISNOTVALID (7,"Record is not valid"),
+    FILEISALREADYSAVED (8,"File is already saved"),
+    RECORDNOTSAVED (9,"Unsuccessful save, file not valid"),
+    EMPTYORWRONG(10, "File name is empty or not end with .xsd for xsd file and .xml for xml file");
+
+    private String textexception;
+    private int    code;
+
+    MappedExceptions( int code,String textexception) {
+        this.code = code;
+        this.textexception = textexception;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getTextexception() {
+        return textexception;
+    }
+}

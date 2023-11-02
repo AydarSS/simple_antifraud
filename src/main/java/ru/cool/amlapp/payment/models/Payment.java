@@ -1,4 +1,4 @@
-package ru.cool.amlapp.models;
+package ru.cool.amlapp.payment.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,6 +18,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    Long  paymentId;
     String payerId;
     String payeeId;
     BigDecimal amount;
