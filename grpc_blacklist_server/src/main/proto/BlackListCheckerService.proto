@@ -1,0 +1,20 @@
+syntax = "proto3";
+package  ru.antifraud.grpc;
+
+service BlackListCheckService {
+  rpc BlackListChecking (BlackListCheckRequest) returns (BlackListCheckResponse);
+}
+
+enum CheckResult {
+  NO_MATCH_FOUND = 0;
+  EXIST_IN_BLACK_LIST = 1;
+}
+message BlackListCheckRequest {
+  string personId = 1;
+}
+
+message BlackListCheckResponse {
+  CheckResult checkResult = 1;
+  string      personId =2;
+}
+

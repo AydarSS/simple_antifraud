@@ -12,4 +12,6 @@ public interface LimitInfoRepository  extends JpaRepository<LimitInfo,Long> {
 
   Optional<LimitInfo> findByLimitTypeAndMaximumAmountInLimit (LimitType limitType, BigDecimal maximumAmountInLimit);
 
+  Optional<LimitInfo> findByLimitType (LimitType limitType);
+
 }

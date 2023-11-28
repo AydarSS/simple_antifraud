@@ -7,11 +7,8 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Builder
 @Table (name = "payment")
 public class Payment {
 
@@ -23,4 +20,24 @@ public class Payment {
     String payeeId;
     BigDecimal amount;
     OffsetDateTime paymentDateTime;
+    PaymentStatus  status;
+
+    public Payment(Long paymentId, String payerId, String payeeId, BigDecimal amount,
+        OffsetDateTime paymentDateTime) {
+        this.paymentId = paymentId;
+        this.payerId = payerId;
+        this.payeeId = payeeId;
+        this.amount = amount;
+        this.paymentDateTime = paymentDateTime;
+    }
+
+    public Payment(Long paymentId, String payerId, String payeeId, BigDecimal amount,
+        OffsetDateTime paymentDateTime, PaymentStatus status) {
+        this.paymentId = paymentId;
+        this.payerId = payerId;
+        this.payeeId = payeeId;
+        this.amount = amount;
+        this.paymentDateTime = paymentDateTime;
+        this.status = status;
+    }
 }
