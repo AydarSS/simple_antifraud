@@ -1,4 +1,4 @@
-package com.amlapp.grpc_blacklist_server;
+package com.amlapp.grpc_blacklist_server.service;
 
 import com.amlapp.grpc_blacklist_server.repository.BlackListRepository;
 import io.grpc.stub.StreamObserver;

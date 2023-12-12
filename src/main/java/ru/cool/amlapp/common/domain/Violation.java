@@ -1,4 +1,4 @@
-package ru.cool.amlapp.common.exceptions.domain;
+package ru.cool.amlapp.common.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -37,10 +37,11 @@ public class LimitCheckerImpl implements LimitChecker {
     for (LimitInfo limitInfo: limitInfoList) {
       beginDateTime = limitInfo.getLimitType().calculateBeginDateByDate(payment.getPaymentDateTime());
       sumPreviousPaymentsByDate = paymentRepository.findPreviousPaymentSumMoreThanDate(beginDateTime);
+
       if (limitInfo.getMaximumAmountInLimit().compareTo(sumPreviousPaymentsByDate.add(payment.getAmount())) < 0) {
         errorDescription.add(
                 String.format(limitExceededText, limitInfo.getLimitType(), limitInfo.getMaximumAmountInLimit(),
-                    sumPreviousPaymentsByDate.toString()));
+                    sumPreviousPaymentsByDate));
         isSuccessCheck = false;
       }
     }

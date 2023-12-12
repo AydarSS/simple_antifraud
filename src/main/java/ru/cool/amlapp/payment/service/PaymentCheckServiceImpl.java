@@ -1,4 +1,4 @@
-package ru.cool.amlapp.payment.impl;
+package ru.cool.amlapp.payment.service;
 
 import static ru.cool.amlapp.common.exceptions.MappedExceptions.RECORDEXISTS;
 
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.cool.amlapp.common.exceptions.ApiRequestException;
@@ -22,6 +24,11 @@ import ru.cool.amlapp.payment.response.PaymentCheckResponseWithErrors;
 @Service
 public class PaymentCheckServiceImpl  implements PaymentCheckService {
 
+  Logger logger = LoggerFactory.getLogger(PaymentCheckServiceImpl.class);
+
+  private final int CHECKS_PASSED = 0;
+  private final int CHECKS_FAILED = 1;
+
   @Autowired
   List<PaymentHandler> paymentHandlers;
 
@@ -37,13 +44,18 @@ public class PaymentCheckServiceImpl  implements PaymentCheckService {
     checksResults = check(payment);
 
     if (!isChecksPassed(checksResults)) {
-
       markNotPassedChecks(payment);
-      return new PaymentCheckResponseWithErrors(1,checksResults);
+      logger.info("Payment checks failed, generated error response = {}", payment);
+      return new PaymentCheckResponseWithErrors(CHECKS_FAILED,
+          checksResults
+          .stream()
+          .filter(checkDetail -> !checkDetail.getDescription().isEmpty())
+          .toList());
     }
 
     markSuccessPassedChecks(payment);
-    return new PaymentCheckResponseSuccess(0);
+    logger.info("Payment checks passed, generated error response = {}", payment);
+    return new PaymentCheckResponseSuccess(CHECKS_PASSED);
   }
 
   private boolean isChecksPassed(List<CheckDetail> checksResults) {
@@ -54,9 +66,11 @@ public class PaymentCheckServiceImpl  implements PaymentCheckService {
     Optional<Payment> paymentExisting = paymentRepository.findPaymentByPaymentId(payment.getPaymentId());
     if (paymentExisting.isPresent()){
       throw new ApiRequestException(RECORDEXISTS);
+
     }
     payment.setStatus(PaymentStatus.PROCESSED);
     paymentRepository.save(payment);
+    logger.info("Payment saved and mark as processed = {}", payment);
   }
 
   private void markNotPassedChecks(Payment payment) {

@@ -11,9 +11,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.cool.amlapp.common.exceptions.domain.ErrorResponseEntity;
-import ru.cool.amlapp.common.exceptions.domain.Violation;
-import ru.cool.amlapp.common.exceptions.utils.MappedExceptionsToViolationConverter;
+import ru.cool.amlapp.common.domain.ErrorResponseEntity;
+import ru.cool.amlapp.common.domain.Violation;
+import ru.cool.amlapp.common.utils.MappedExceptionsToViolationConverter;
 
 @RestControllerAdvice
 public class ApiRequestExceptionHandler {

@@ -1,7 +1,7 @@
-package ru.cool.amlapp.common.exceptions.utils;
+package ru.cool.amlapp.common.utils;
 
 import ru.cool.amlapp.common.exceptions.MappedExceptions;
-import ru.cool.amlapp.common.exceptions.domain.Violation;
+import ru.cool.amlapp.common.domain.Violation;
 
 public class MappedExceptionsToViolationConverter {
 

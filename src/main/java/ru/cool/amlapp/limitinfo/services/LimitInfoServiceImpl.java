@@ -1,4 +1,4 @@
-package ru.cool.amlapp.limitinfo.impl;
+package ru.cool.amlapp.limitinfo.services;
 
 import static ru.cool.amlapp.common.exceptions.MappedExceptions.RECORDEXISTS;
 import static ru.cool.amlapp.common.exceptions.MappedExceptions.RECORDNOTEXISTS;
@@ -25,8 +25,8 @@ public class LimitInfoServiceImpl implements LimitInfoService {
 
     @Override
     public void saveLimit(LimitInfo limitInfo) {
-         Optional<LimitInfo> limitInfoExisting = limitInfoRepository.
-             findByLimitTypeAndMaximumAmountInLimit(
+         Optional<LimitInfo> limitInfoExisting =
+             limitInfoRepository.findByLimitTypeAndMaximumAmountInLimit(
                  limitInfo.getLimitType(),
                  limitInfo.getMaximumAmountInLimit());
          if (limitInfoExisting.isPresent()) {
@@ -37,7 +37,9 @@ public class LimitInfoServiceImpl implements LimitInfoService {
 
   @Override
   public LimitInfo updateLimit(long id, LimitInfo limitInfoNew) {
-      LimitInfo limitInfoChangeable = limitInfoRepository.findById(id).orElseThrow(() -> new ApiRequestException(RECORDNOTEXISTS));
+      LimitInfo limitInfoChangeable = limitInfoRepository
+          .findById(id)
+          .orElseThrow(() -> new ApiRequestException(RECORDNOTEXISTS));
         limitInfoChangeable.setLimitType(limitInfoNew.getLimitType());
         limitInfoChangeable.setMaximumAmountInLimit(limitInfoNew.getMaximumAmountInLimit());
         return limitInfoRepository.save(limitInfoChangeable);
@@ -45,7 +47,7 @@ public class LimitInfoServiceImpl implements LimitInfoService {
 
   @Override
   public void deleteLimit(long id) {
-    LimitInfo limitInfoDEleteable = limitInfoRepository.findById(id).orElseThrow(() -> new ApiRequestException(RECORDNOTEXISTS));
-    limitInfoRepository.delete(limitInfoDEleteable);
+    LimitInfo limitInfoDeleteable = limitInfoRepository.findById(id).orElseThrow(() -> new ApiRequestException(RECORDNOTEXISTS));
+    limitInfoRepository.delete(limitInfoDeleteable);
   }
 }
